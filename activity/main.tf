@@ -8,13 +8,6 @@ variable "env" {
   default = "dev"  
 }
 
-/*
-resource "aws_iam_instance_profile" "tf_dynamodb_profile" {
-  name = "tf_yl_dynamodb_profile"
-  role = aws_iam_role.tf_dynamodb_role.name
-}
-*/
-
 resource "aws_instance" "public" {
   ami = data.aws_ami.amazon2023.id
   instance_type = "t2.micro"
@@ -69,7 +62,7 @@ resource "aws_ebs_volume" "yl-ebs" {
   }
 }
 
-resource "aws_volume_attachment" "ebs_att" {
+resource "aws_volume_attachment" "ebs_attach" {
   device_name = "/dev/sdb"
   volume_id   = aws_ebs_volume.yl-ebs.id
   instance_id = aws_instance.public.id
